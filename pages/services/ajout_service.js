@@ -1,32 +1,37 @@
-import React, { useState,useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Dropdown } from 'primereact/dropdown';
 import { useReducer } from 'react';
 import { FileUpload } from 'primereact/fileupload';
-import {useQueryClient,useMutation} from 'react-query';
+import { useQueryClient, useMutation } from 'react-query';
 
 
-const formReducer=(state,event)=>{
-    return{
-        ...state,
-        [event.target.name]:event.target.value
-    }
-
-}
 const FormLayoutDemo = () => {
-    const[FormData,setFormData]=useReducer(formReducer,{});
-    const handleSubmit=(e)=>{
+    const [image, setImage] = useState(null);
+    const [titre, setTitre] = useState('');
+    const [description, setDescription] = useState('');
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(FormData);
+        const formData = new FormData();
+        formData.append('image', image);
+        formData.append('titre', titre);
+        formData.append('description', description);
+        try {
+            const response = await fetch('http://localhost:5050/service/ajouter_service',
+                {
+                    method:'POST',
+                    body:formData
+                });
+            console.log(response);
+
+        } catch (error) {
+            console.log(error);
+        }
+        console.log(formData);
     }
-    const [dropdownItem, setDropdownItem] = useState(null);
-    const dropdownItems = [
-        { name: 'Option 1', code: 'Option 1' },
-        { name: 'Option 2', code: 'Option 2' },
-        { name: 'Option 3', code: 'Option 3' }
-    ];
     const toast = useRef(null);
 
     const onUpload = () => {
@@ -35,40 +40,31 @@ const FormLayoutDemo = () => {
     return (
         <div className="grid">
             <div className="col-12 md:col-6">
-
-                
                 <div className="card p-fluid">
                     <form onSubmit={handleSubmit}>
                         <h5>Ajouter Services</h5>
                         <div className="field">
-                            <label htmlFor="name1">Nom Service</label>
-                            <InputText onChange={setFormData} id="name1" name="name1" type="text" />
+                            <label htmlFor="titre">Nom Service</label>
+                            <InputText onChange={(e) => setTitre(e.target.value)} id="titre" name="titre" type="text" />
                         </div>
 
                         <div className="field col-12">
-                            <label htmlFor="address">Description</label>
-                            <InputTextarea id="address" rows="4" />
-                            
+                            <label htmlFor="description">Description</label>
+                            <InputTextarea id="description" name="description" onChange={(e) => setDescription(e.target.value)} rows="4" />
+
                         </div>
 
                         <div>
-                            <FileUpload name="demo[]" url="./upload.php" onUpload={onUpload} multiple accept="image/*" maxFileSize={1000000} />
-
+                            <FileUpload name="image" onSelect={(e) => {
+                                setImage(e.files[0])
+                            }}
+                                onUpload={onUpload} accept="image/*" maxFileSize={3000000} />
                         </div>
 
-            
+                        <button type='submit'>Submit</button>
                     </form>
                 </div>
-                
-
-
             </div>
-
-
-
-
-
-            
         </div>
     );
 };

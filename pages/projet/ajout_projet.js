@@ -4,19 +4,27 @@ import { Button } from 'primereact/button';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Dropdown } from 'primereact/dropdown';
 import { useReducer } from 'react';
-import {useQueryClient,useMutation} from 'react-query';
+import { useQueryClient, useMutation } from 'react-query';
 import { FileUpload } from 'primereact/fileupload';
-const formReducer=(state,event)=>{
-    return{
+const formReducer = (state, event) => {
+    return {
         ...state,
-        [event.target.name]:event.target.value
+        [event.target.name]: event.target.value
     }
 
 }
 const FormLayoutDemo = () => {
-    const[FormData,setFormData]=useReducer(formReducer,{});
-    const handleSubmit=(e)=>{
+    const [FormData, setFormData] = useReducer(formReducer, {});
+    const [video, setVideo] = useState(null);
+    const [images, setImages] = useState(null);
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        if (images) {
+            for (let i = 0; i < files.length; i++) {
+                FormData.append('images', images[i]);
+            }
+        }
+        FormData.append(video);
         console.log(FormData);
     }
     const [dropdownItem, setDropdownItem] = useState(null);
@@ -32,10 +40,6 @@ const FormLayoutDemo = () => {
 
     return (
         <div className="grid">
-
-
-
-
             <div className="col-12">
                 <div className="card">
                     <h5>Ajouter Projet</h5>
@@ -64,12 +68,12 @@ const FormLayoutDemo = () => {
 
                         <div className="field col-12 ">
                             <label htmlFor="state">Image</label>
-                            <FileUpload name="demo[]" url="./upload.php" onUpload={onUpload} multiple accept="image/*" maxFileSize={1000000} />
+                            <FileUpload name="demo[]" url="http://localhost:5050/projet/ajouter_projet" onUpload={onUpload} multiple accept="image/*" maxFileSize={1000000} />
                         </div>
 
                         <div className="field col-12 ">
-                            <label htmlFor="state">Vedio</label>
-                            <FileUpload name="demo[]" url="./upload.php" onUpload={onUpload} multiple accept="image/*" maxFileSize={1000000} />
+                            <label htmlFor="state">Video</label>
+                            <FileUpload name="demo[]" url="http://localhost:5050/projet/ajouter_projet" onUpload={onUpload} accept="video/*" maxFileSize={5000000000} />
                         </div>
 
 
