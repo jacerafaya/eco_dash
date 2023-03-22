@@ -15,8 +15,8 @@ const FormLayoutDemo = (props) => {
     
     const [image, setImage] = useState(router.query.image);
     const [titre, setTitre] = useState(router.query.titre);
-       
-    const [description, setDescription] = useState(router.query.description);         
+    const [description, setDescription] = useState(router.query.description);
+
     const handleSubmit= async (e)=>{
         e.preventDefault();
         const _id=router.query._id;
@@ -42,9 +42,7 @@ const FormLayoutDemo = (props) => {
     }
     const toast = useRef(null);
 
-    const onUpload = () => {
-        toast.current.show({ severity: 'info', summary: 'Success', detail: 'File Uploaded', life: 3000 });
-    };
+
     return (
         <div className="grid">
             <div className="col-12 md:col-6">
