@@ -6,9 +6,14 @@ import { Dropdown } from 'primereact/dropdown';
 import { useReducer } from 'react';
 import { FileUpload } from 'primereact/fileupload';
 import {useQueryClient,useMutation} from 'react-query';
+import { useRouter } from 'next/router';
 
 
 const FormLayoutDemo = () => {
+    const router = useRouter()
+    const id=router.query
+   // const service = JSON.parse(id);
+    console.log(id)
     const [image, setImage] = useState(null);
     const [titre, setTitre] = useState('');
     const [description, setDescription] = useState('');

@@ -12,33 +12,43 @@ import { InputText } from 'primereact/inputtext';
 import { Splitter, SplitterPanel } from 'primereact/splitter';
 import { Password } from 'primereact/password';
 import { Menu } from 'primereact/menu';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const PanelDemo = () => {
+    const router = useRouter();
     const menu1 = useRef(null);
     const [serviceCardsContent, setServiceCardsContent] = useState([]);
-    const PROTOCOLANDHOSTNAMEPARTOFTHEURL = 'http://localhost:5050/'
+    const PROTOCOLANDHOSTNAMEPARTOFTHEURL = 'http://localhost:5050/';
 
     useEffect(() => {
-        fetch(PROTOCOLANDHOSTNAMEPARTOFTHEURL+ 'services')
+        fetch(PROTOCOLANDHOSTNAMEPARTOFTHEURL + 'services')
             .then((response) => response.json())
             .then((data) => {
                 setServiceCardsContent(data);
             })
-            .catch((error) => console.log(error))
+            .catch((error) => console.log(error));
     }, []);
-    const removeCard = (id) => { 
+
+    const editCard = (cardContent) => {
+        const url = '/services/' + cardContent._id;
+        router.push(url);
+    };
+
+    const removeCard = (id) => {
         console.log(id);
-        fetch(PROTOCOLANDHOSTNAMEPARTOFTHEURL+'service/'+id,{
-            method:'DELETE'
-        }).then((response) => {
+        fetch(PROTOCOLANDHOSTNAMEPARTOFTHEURL + 'service/' + id, {
+            method: 'DELETE'
+        })
+            .then((response) => {
                 if (!response.ok) {
-                   throw new Error(`http error, status : ${response.status}`) 
+                    throw new Error(`http error, status : ${response.status}`);
                 }
                 console.log('serviceSuccessfully deleted');
             })
-                .catch((error) => console.log(error))
-        setServiceCardsContent(serviceCardsContent.filter((card) => card._id !== id ));
-    } 
+            .catch((error) => console.log(error));
+        setServiceCardsContent(serviceCardsContent.filter((card) => card._id !== id));
+    };
 
     const toolbarItems = [
         {
@@ -90,30 +100,28 @@ const PanelDemo = () => {
         </div>
     );
     if (serviceCardsContent.length === 0) {
-        return <div>loading...</div>
+        return <div>loading...</div>;
     }
     return (
-
         <div className="grid">
-            {
-                serviceCardsContent.map((cardContent, index) => {
-                    return (
-                        <div key={cardContent._id} className="card col-12 md:col-6">
-                            <Fieldset legend={cardContent.titre} toggleable>
-                                <img src={PROTOCOLANDHOSTNAMEPARTOFTHEURL + 'imageService/' + cardContent.image} style={{height:215.1,width:322.5}} className="w-6" />
-                                <p className="text-gray-800 sm:line-height-2 md:line-height-4 text-xl mt-4">
-                                    {cardContent.description}
-                                </p>
-                            </Fieldset>
-                            <Button label="Supprimer" className="p-button-danger m-4" onClick={() => removeCard(cardContent._id) }  />
-                            <Button label="Modifier" className="m-4" />
-                        </div>
+            {serviceCardsContent.map((cardContent, index) => {
+                const json_data = JSON.stringify(cardContent);
+                console.log(json_data)
 
-                    );
+                return (
+                    <div key={cardContent._id} className="card col-12 md:col-6">
+                        <Fieldset legend={cardContent.titre} toggleable>
+                            <img src={PROTOCOLANDHOSTNAMEPARTOFTHEURL + 'imageService/' + cardContent.image} style={{ height: 215.1, width: 322.5 }} className="w-6" />
+                            <p className="text-gray-800 sm:line-height-2 md:line-height-4 text-xl mt-4">{cardContent.description}</p>
+                        </Fieldset>
+                        <Button label="Supprimer" className="p-button-danger m-4" onClick={() => removeCard(cardContent._id)} />
 
-                })
-
-            }
+                        <Link href={`/services?id=${encodeURIComponent(json_data)}`}>
+                            <Button label="Modifier" className="m-4" onClick={() => editCard(cardContent)} />
+                        </Link>
+                    </div>
+                );
+            })}
             {/* <div className="card col-12 md:col-6 	 "> */}
             {/*     <Fieldset legend="Ingénierie " toggleable> */}
             {/*         <img src={`/demo/images/ingénieurie.jpg`} className="w-6"  /> */}
@@ -164,7 +172,6 @@ const PanelDemo = () => {
             {/*     <Button label="Supprimer" className="p-button-danger m-4" /> */}
             {/*     <Button label="Modifier" className="m-4" /> */}
             {/* </div> */}
-
         </div>
     );
 };

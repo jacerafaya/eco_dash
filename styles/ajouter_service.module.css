@@ -1,3 +1,22 @@
-.formulaire_ajouter_service{
-    
-}
+.custom-file-upload .p-fileupload-button {
+    background-color: #0070f3;
+    color: white;
+    border-radius: 4px;
+  }
+  
+  .custom-file-upload .p-fileupload-choose input {
+    display: none;
+  }
+  
+  .custom-file-upload .p-fileupload-choose {
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .custom-file-upload .p-fileupload-choose:hover {
+    background-color: #0057a0;
+  }
+  .submit_button{
+    background-color: blue;
+  }

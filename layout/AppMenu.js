@@ -24,15 +24,8 @@ const AppMenu = () => {
                         {
                             label: 'Ajouter Service',
                             icon: 'pi pi-fw pi-plus',
-                            to: '/services/ajout_service',
+                            to: '/services/ajout_service'
                         },
-
-                        {
-                            label: 'Modifier Service',
-                            icon: 'pi pi-fw pi-plus',
-                            to: '/services/edit_service',
-                        },
-                        
                         {
                             label: 'Tout les Services',
                             icon: 'pi pi-fw pi-search',
@@ -48,14 +41,8 @@ const AppMenu = () => {
                         {
                             label: 'Ajouter Projet',
                             icon: 'pi pi-fw pi-plus',
-                            to: '/projet/ajout_projet',
+                            to: '/projet/ajout_projet'
                         },
-                        {
-                            label: 'Modifier Projet',
-                            icon: 'pi pi-fw pi-plus',
-                            to: '/projet/edit_projet',
-                        },
-                        
                         {
                             label: 'Tout les Projet',
                             icon: 'pi pi-fw pi-search',
@@ -64,25 +51,30 @@ const AppMenu = () => {
                     ]
                 },
 
-                { label: 'Article', icon: 'pi pi-fw  pi-id-card', to: '/uikit/floatlabel' },
+                {
+                    label: 'Article',
+                    icon: 'pi pi-fw  pi-id-card',
+                    items: [
+                        {
+                            label: 'Ajouter Article',
+                            icon: 'pi pi-fw pi-plus',
+                            to: '/articles/ajout_article'
+                        },
+                        {
+                            label: 'Tout les Articles',
+                            icon: 'pi pi-fw pi-search',
+                            to: '/articles'
+                        }
+                    ]
+                },
 
-                { label: 'Info Contact', icon: 'pi pi-fw pi-info-circle', to: '/pages/empty' },
-               
-               
-                
-
-
+                { label: 'Info Contact', icon: 'pi pi-fw pi-info-circle', to: '/pages/empty' }
             ]
         },
         {
             label: 'Partie Front',
             items: [{ label: 'Page Principale', icon: 'pi pi-fw pi-globe', to: '/landing' }]
-        },
-        
-
-
-
-
+        }
     ];
 
     return (
@@ -91,8 +83,6 @@ const AppMenu = () => {
                 {model.map((item, i) => {
                     return !item.seperator ? <AppMenuitem item={item} root={true} index={i} key={item.label} /> : <li className="menu-separator"></li>;
                 })}
-
-
             </ul>
         </MenuProvider>
     );
