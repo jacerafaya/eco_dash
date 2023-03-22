@@ -10,6 +10,8 @@ import Link from 'next/link';
 
 import { useRouter } from 'next/router'
 
+import styles from '../../styles/service_css.module.css'
+
 
 const FormLayoutDemo = () => {
     const [image, setImage] = useState(null);
@@ -23,12 +25,12 @@ const FormLayoutDemo = () => {
         formData.append('titre', titre);
         formData.append('description', description);
         
+        
             
         
         try {
-
+            
             if (image!==null && titre!=='' && description!=='') {
-                
                 const response = await fetch('http://localhost:5050/service/ajouter_service',
                 {
                     method:'POST',
@@ -37,18 +39,10 @@ const FormLayoutDemo = () => {
             console.log(response);
             router.push('/services')
             }
-
-
         } catch (error) {
             console.log(error);
         }
-
-
-
-
         console.log(formData);
-        
-        
         
     }
     const toast = useRef(null);
@@ -74,17 +68,20 @@ const FormLayoutDemo = () => {
                         </div>
 
                         <div>
+                        
                         <FileUpload name="myFile" className="custom-file-upload" 
                                 customUpload onSelect={(e) => {
                                     setImage(e.files[0])
                                 }}
-                                chooseLabel="Choisir photo" cancelLabel="Cancel" mode="basic"
+                                chooseLabel={image ? image.name : 'Choisir une photo'} cancelLabel="Cancel" mode="basic"
                                 accept=".jpg,.png" maxFileSize={1000000} />
+
+
+
                         </div>
 
+                        <Button className={styles.submit_button} type="submit" label="Ajouter" icon="pi pi-check"/>
                         
-                        
-                        <button href="/services" type='submit'>submit</button>
                     </form>
                 </div>
             </div>

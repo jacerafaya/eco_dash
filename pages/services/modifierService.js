@@ -1,4 +1,4 @@
-import React, { useState,useRef } from 'react';
+import React, { useState,useRef,useEffect } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { InputTextarea } from 'primereact/inputtextarea';
@@ -7,24 +7,26 @@ import { useReducer } from 'react';
 import { FileUpload } from 'primereact/fileupload';
 import {useQueryClient,useMutation} from 'react-query';
 import { useRouter } from 'next/router';
+import styles from '../../styles/service_css.module.css'
 
-
-const FormLayoutDemo = () => {
+const FormLayoutDemo = (props) => {
     const router = useRouter()
-    const id=router.query
-   // const service = JSON.parse(id);
-    console.log(id)
-    const [image, setImage] = useState(null);
-    const [titre, setTitre] = useState('');
-    const [description, setDescription] = useState('');
-
+    
+    
+    const [image, setImage] = useState(router.query.image);
+    const [titre, setTitre] = useState(router.query.titre);
+       
+    const [description, setDescription] = useState(router.query.description);         
     const handleSubmit= async (e)=>{
         e.preventDefault();
+        const _id=router.query._id;
+        console.log("houni",_id)
         const formData = new FormData();
         formData.append('image', image);
         formData.append('description', description);
+        formData.append('titre', titre);
         try {
-            const response = await fetch('http://localhost:5050/service/update/'+titre,
+            const response = await fetch('http://localhost:5050/service/update/'+_id,
             {
                     method:'PUT',
                     body:formData
@@ -36,6 +38,7 @@ const FormLayoutDemo = () => {
             console.log(error);
         }
         console.log(FormData);
+        router.push('/services')
     }
     const toast = useRef(null);
 
@@ -50,24 +53,28 @@ const FormLayoutDemo = () => {
                         <h5>Modifier Services</h5>
                         <div className="field">
                             <label htmlFor="titre">Nom Service</label>
-                            <InputText onChange={(e)=>setTitre(e.target.value)} id="titre" name="titre" type="text" />
+                            <InputText onChange={(e)=>setTitre(e.target.value)} id="titre" name="titre" type="text" defaultValue={router.query.titre}  />
                         </div>
 
                         <div className="field col-12">
                             <label htmlFor="address">Description</label>
-                            <InputTextarea onChange={(e)=>setDescription(e.target.value)} id="description" name="description" rows="4" />
+                            <InputTextarea onChange={(e)=>setDescription(e.target.value)} id="description" name="description" rows="4" defaultValue={router.query.description} />
                             
                         </div>
 
                         <div>
-                            <FileUpload name="demo[]" onSelect={(e)=>setImage(e.files[0])} accept="image/*" maxFileSize={3000000} />
-
+                            <FileUpload name="myFile" className="custom-file-upload" 
+                                customUpload onSelect={(e) => {
+                                    setImage(e.files[0])
+                                }}
+                                chooseLabel={!image ? router.query.image : image!==router.query.image ? image.name : router.query.image} cancelLabel="Cancel" mode="basic"
+                                accept=".jpg,.png" maxFileSize={1000000} />
                         </div>
-                    <button type='submit'>Submit</button>
+                        <Button className={styles.submit_button} type="submit" label="Valider" icon="pi pi-check"/>
             
                     </form>
                 </div>
-                
+
 
 
             </div>

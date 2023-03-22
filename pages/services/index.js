@@ -14,6 +14,7 @@ import { Password } from 'primereact/password';
 import { Menu } from 'primereact/menu';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { withRouter } from 'next/router'
 
 const PanelDemo = () => {
     const router = useRouter();
@@ -30,9 +31,12 @@ const PanelDemo = () => {
             .catch((error) => console.log(error));
     }, []);
 
-    const editCard = (cardContent) => {
-        const url = '/services/' + cardContent._id;
-        router.push(url);
+    const editCard = (cardContent) => {    
+        const {_id,titre,image,description}=cardContent;     
+        router.push({
+            pathname: '/services/modifierService',
+            query: {_id,titre,image,description}
+        })
     };
 
     const removeCard = (id) => {
@@ -116,9 +120,9 @@ const PanelDemo = () => {
                         </Fieldset>
                         <Button label="Supprimer" className="p-button-danger m-4" onClick={() => removeCard(cardContent._id)} />
 
-                        <Link href={`/services?id=${encodeURIComponent(json_data)}`}>
+                        
                             <Button label="Modifier" className="m-4" onClick={() => editCard(cardContent)} />
-                        </Link>
+                            
                     </div>
                 );
             })}
@@ -176,4 +180,13 @@ const PanelDemo = () => {
     );
 };
 
-export default PanelDemo;
+export default withRouter (PanelDemo);
+
+
+
+
+
+
+
+
+
