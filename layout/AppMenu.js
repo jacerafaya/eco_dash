@@ -9,14 +9,12 @@ const AppMenu = () => {
     const { layoutConfig } = useContext(LayoutContext);
     const contextPath = getConfig().publicRuntimeConfig.contextPath;
     const model = [
+
         {
-            label: 'Home',
-            items: [{ label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/' }]
-        },
-        {
-            label: 'Gestion',
+            icon: 'pi pi-fw pi-home',
+            label: 'Dashboard',
             items: [
-                { label: 'Info Formulaire de devis', icon: 'pi pi-fw pi-user', to: '/uikit/table' },
+                { label: 'Info Formulaire de devis', icon: 'pi pi-fw pi-user', to: '/coordonneClient' },
                 {
                     label: 'Services ',
                     icon: 'pi pi-fw pi-share-alt',

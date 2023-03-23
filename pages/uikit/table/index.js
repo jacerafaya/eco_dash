@@ -365,6 +365,7 @@ console.log(customers1);
                         <Column field="name" header="Prénom" filter filterPlaceholder="Search by name" style={{ minWidth: '8rem' }} />
                         <Column field="id" header="Numéro Téléphone" style={{ flexGrow: 1, flexBasis: '100px' }} frozen={idFrozen} alignFrozen="left" bodyClassName={classNames({ 'font-bold': idFrozen })}></Column>
                         <Column field="activity" header="Age" style={{ flexGrow: 1, flexBasis: '200px' }}></Column>
+                        <Column field="name" header="Email" filter filterPlaceholder="Search by name" style={{ minWidth: '8rem' }} />
                         <Column field="name" header="Fonction" filter filterPlaceholder="Search by name" style={{ minWidth: '8rem' }} />
                         <Column field="company" header="Localisation" style={{ flexGrow: 1, flexBasis: '200px' }}></Column>
                        
