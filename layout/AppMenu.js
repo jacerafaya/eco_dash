@@ -68,7 +68,7 @@ const AppMenu = () => {
                     ]
                 },
 
-                { label: 'Info Contact', icon: 'pi pi-fw pi-info-circle', to: '/pages/empty' }
+                { label: 'Info Contact', icon: 'pi pi-fw pi-info-circle', to: '/contactInfo' }
             ]
         },
         {
