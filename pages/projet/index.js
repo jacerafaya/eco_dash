@@ -31,13 +31,13 @@ const PanelDemo = () => {
             .catch((error) => console.log(error));
     }, []);
 
-    /*const editCard = (cardContent) => {    
-        const {_id,titre,images,description,contenu}=cardContent;     
+    const editCard = (cardContent) => {    
+        const {_id,titre,adresse,description,images,productionAnuelle,type,video}=cardContent;     
         router.push({
-            pathname: '/projets/modifierProjet',
-            query: {_id,titre,images,description,contenu}
+            pathname: '/projet/modifierProjet',
+            query: {_id,titre,adresse,description,images,productionAnuelle,type,video}
         })
-    };*/
+    };
 
     const removeCard = (id) => {
         console.log(id);
@@ -124,56 +124,7 @@ const PanelDemo = () => {
                     </div>
                 );
             })}
-            {/* <div className="card col-12 md:col-6 	 "> */}
-            {/*     <Fieldset legend="Ingénierie " toggleable> */}
-            {/*         <img src={`/demo/images/ingénieurie.jpg`} className="w-6"  /> */}
-            {/*         <p className="text-gray-800 sm:line-height-2 md:line-height-4 text-xl mt-4"> */}
-            {/*             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo */}
-            {/*             consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est */}
-            {/*             laborum. */}
-            {/*         </p> */}
-            {/*     </Fieldset> */}
-            {/*     <Button label="Supprimer" className="p-button-danger m-4" /> */}
-            {/*     <Button label="Modifier" className="m-4" /> */}
-            {/* </div> */}
-
-            {/* <div className="card col-12 md:col-6"> */}
-            {/*     <Fieldset legend="Exécution  " toggleable> */}
-            {/*         <img src={`/demo/images/exécution.jpg`} className="w-6" /> */}
-            {/*         <p className="text-gray-800 sm:line-height-2 md:line-height-4 text-xl mt-4"> */}
-            {/*             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo */}
-            {/*             consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est */}
-            {/*             laborum. */}
-            {/*         </p> */}
-            {/*     </Fieldset> */}
-            {/*     <Button label="Supprimer" className="p-button-danger m-4 " /> */}
-            {/*     <Button label="Modifier" className="m-4" /> */}
-            {/* </div> */}
-
-            {/* <div className="card col-12 md:col-6"> */}
-            {/*     <Fieldset legend="Conseil  " toggleable> */}
-            {/*         <img src={`/demo/images/conseil.png`} className="w-6" /> */}
-            {/*         <p className="text-gray-800 sm:line-height-2 md:line-height-4 text-xl mt-4"> */}
-            {/*             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo */}
-            {/*             consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est */}
-            {/*             laborum. */}
-            {/*         </p> */}
-            {/*     </Fieldset> */}
-            {/*     <Button label="Supprimer" className="p-button-danger m-4" /> */}
-            {/*     <Button label="Modifier" className="m-4" /> */}
-            {/* </div> */}
-            {/* <div className="card col-12 md:col-6"> */}
-            {/*     <Fieldset legend="Opération et maintenance" toggleable> */}
-            {/*         <img src={`/demo/images/maintenance.png`} className="w-6" /> */}
-            {/*         <p className="text-gray-800 sm:line-height-2 md:line-height-4 text-xl mt-4"> */}
-            {/*             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo */}
-            {/*             consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est */}
-            {/*             laborum. */}
-            {/*         </p> */}
-            {/*     </Fieldset> */}
-            {/*     <Button label="Supprimer" className="p-button-danger m-4" /> */}
-            {/*     <Button label="Modifier" className="m-4" /> */}
-            {/* </div> */}
+            
         </div>
     );
 };
