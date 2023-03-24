@@ -3,20 +3,15 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Dropdown } from 'primereact/dropdown';
-import { useReducer } from 'react';
+import { useReducer,useEffect } from 'react';
 import { FileUpload } from 'primereact/fileupload';
 import { useQueryClient, useMutation } from 'react-query';
 import Link from 'next/link';
 
 import { useRouter } from 'next/router';
-
 import styles from '../../styles/service_css.module.css';
-
-
 import { Toast } from 'primereact/toast';
-
 import { ProgressBar } from 'primereact/progressbar';
-
 import { Tooltip } from 'primereact/tooltip';
 import { Tag } from 'primereact/tag';
 
@@ -35,15 +30,20 @@ const fileUploadRef = useRef(null);
 const onTemplateSelect = (e) => {
     let _totalSize = totalSize;
     let files = e.files;
-
+    
     Object.keys(files).forEach((key) => {
         _totalSize += files[key].size || 0;
+        
     });
 
     setTotalSize(_totalSize);
-
+    
     setImages([...images,...e.files]);
+
 };
+
+
+
 
 const onTemplateUpload = (e) => {
     let _totalSize = 0;
@@ -57,8 +57,10 @@ const onTemplateUpload = (e) => {
 };
 
 const onTemplateRemove = (file, callback) => {
-    console.log("file",file)
-    setImages(images.filter((image)=>{image!==file}));
+    console.log("images in remove ",images)
+    console.log("file in remove ",file);
+    setImages(images.filter((image)=>image!==file));
+    //console.log("images in remove after filter ",images)
     setTotalSize(totalSize - file.size);
     callback();
 };
@@ -124,7 +126,7 @@ const cancelOptions = { icon: 'pi pi-fw pi-times', iconOnly: true, className: 'c
     const [images, setImages] = useState([]);
     const [video, setVideo] = useState(null);
     const [type, setType] = useState(null);
-
+    useEffect(()=>{console.log("images use effect",images)},[images])
     const types = [
         { name: 'Pompage au fil du soleil', code: 'Pompage au fil du soleil' },
         { name: 'Pompage raccordé steg', code: 'Pompage raccordé steg' },
@@ -153,7 +155,7 @@ const cancelOptions = { icon: 'pi pi-fw pi-times', iconOnly: true, className: 'c
         formData.append('productionAnuelle', productionAnuelle);
         formData.append('type', type?.name);
         formData.append('video', video);
-        //console.log("houni tab3a total" ,images,video,titre,adresse,description,productionAnuelle,type);
+        console.log("houni tab3a total" ,images,video,titre,adresse,description,productionAnuelle,type);
 
         try {
             if (images.length!==0 && titre !== '' && adresse !== '' && description !== '' && productionAnuelle !== '' && type !== null && video !==null) {
