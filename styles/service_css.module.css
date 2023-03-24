@@ -1,5 +1,6 @@
-.submit_button{
-  box-sizing: border-box;
-
-  margin-top: 3rem;
+.ui-fileupload-buttonbar .ui-fileupload-upload {
+  display: none;
+}
+.ui-fileupload-buttonbar .ui-fileupload-cancel {
+  display: none;
 }

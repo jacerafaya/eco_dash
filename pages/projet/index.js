@@ -39,6 +39,15 @@ const PanelDemo = () => {
         })
     };
 
+    const readCard = (cardContent) => {    
+        const {_id,titre,adresse,description,images,productionAnuelle,type,video}=cardContent;
+          
+        router.push({
+            pathname: '/projet/singleProjet',
+            query: {_id,titre,adresse,description,images,productionAnuelle,type,video}
+        })
+    };
+
     const removeCard = (id) => {
         console.log(id);
         fetch(PROTOCOLANDHOSTNAMEPARTOFTHEURL + 'projet/' + id, {
@@ -121,6 +130,8 @@ const PanelDemo = () => {
                         <Button label="Supprimer" className="p-button-danger m-4" onClick={() => removeCard(cardContent._id)} />
 
                         <Button label="Modifier" className="m-4" onClick={() => editCard(cardContent)} />
+                        <Button label="Consulter" className="p-button-success m-4" onClick={() => readCard(cardContent)} />
+
                     </div>
                 );
             })}

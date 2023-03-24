@@ -41,9 +41,13 @@ const FormLayoutDemo = () => {
         const formData = new FormData();
         console.log("9bal for each images",images)
         if (images!== undefined && images!== null) {
-            images?.forEach((image) => {
-                formData.append('images', image);
-            });
+            if(!Array.isArray(images))
+                {formData.append('images', images);}
+                else{   
+                    images?.forEach((image) => {
+                    formData.append('images', image);
+                });}
+
         }
 
         formData.append('titre', titre);
@@ -75,7 +79,7 @@ const FormLayoutDemo = () => {
             <div className="col-12">
                 <div className="card">
                 <form onSubmit={handleSubmit}>
-                    <h5>Ajouter Projet</h5>
+                    <h5>Modifier Projet</h5>
                     <div className="p-fluid formgrid grid">
                         <div className="field col-12 md:col-6">
                             <label htmlFor="firstname2">Titre</label>

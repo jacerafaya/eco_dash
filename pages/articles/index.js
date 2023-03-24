@@ -39,6 +39,15 @@ const PanelDemo = () => {
         })
     };
 
+    const readCard = (cardContent) => {    
+        const {_id,titre,images,description,contenu}=cardContent;
+          
+        router.push({
+            pathname: '/articles/singleArticle',
+            query: {_id,titre,images,description,contenu}
+        })
+    };
+
     const removeCard = (id) => {
         console.log(id);
         fetch(PROTOCOLANDHOSTNAMEPARTOFTHEURL + 'article/' + id, {
@@ -122,6 +131,7 @@ const PanelDemo = () => {
 
                         
                             <Button label="Modifier" className="m-4" onClick={() => editCard(cardContent)} />
+                            <Button label="Consulter" className="p-button-success m-4" onClick={() => readCard(cardContent)} />
                             
                     </div>
                 );

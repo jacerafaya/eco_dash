@@ -74,7 +74,7 @@ const FormLayoutDemo = () => {
                                     setImage(e.files[0])
                                 }}
                                 chooseLabel={image ? image.name : 'Choisir une photo'} cancelLabel="Cancel" mode="basic"
-                                accept=".jpg,.png" maxFileSize={1000000} />
+                                accept=".jpg,.png" maxFileSize={3000000} />
 
 
 
