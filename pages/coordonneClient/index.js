@@ -1,32 +1,75 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { FilterMatchMode } from 'primereact/api';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import { InputText } from 'primereact/inputtext';
 
-const MyDataTable = () => {
-  const [globalFilter, setGlobalFilter] = useState(''); // initial empty global filter
+export default function BasicFilterDemo() {
+    const [contactsInfo, setContactsInfo] = useState(null);
+    const [filters, setFilters] = useState({
+        global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+        nom: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        prenom: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        numeroTelephone: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        age: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        email: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        fonction: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        localisation: { value: null, matchMode: FilterMatchMode.STARTS_WITH }
+    });
+    const [loading, setLoading] = useState(true);
+    const [globalFilterValue, setGlobalFilterValue] = useState('');
 
-  const data = [
-    { name: 'John', age: 25 },
-    { name: 'Jane', age: 30 },
-    { name: 'Bob', age: 35 },
-    { name: 'moo', age: 5 },
-    { name: 'Hey', age: 10 },
-    { name: 'Bay', age: 7 },
-  ];
 
-  const handleGlobalFilterChange = (e) => {
-    setGlobalFilter(e.target.value);
-  };
-  console.log("globalfilter",globalFilter)
+    useEffect(() => {
+        fetch('http://localhost:5050/coordonneClient').then((response) =>
+            response.json()).then((data) => {
+                console.log(data);
+                setContactsInfo(data);
+                setLoading(false);
+            })
+    }, []);
 
-  return (
-    <div>
-      <input type="text" value={globalFilter} onChange={handleGlobalFilterChange} placeholder="Search" />
-      <DataTable value={data} globalFilter={globalFilter} onGlobalFilter={setGlobalFilter}>
-        <Column field="name" header="Name" />
-        <Column field="age" header="Age" />
-      </DataTable>
-    </div>
-  );
-};
-export default MyDataTable;
+
+    const onGlobalFilterChange = (e) => {
+        const value = e.target.value;
+        let _filters = { ...filters };
+
+        _filters['global'].value = value;
+
+        setFilters(_filters);
+        setGlobalFilterValue(value);
+    };
+
+    const renderHeader = () => {
+        return (
+            <div className="flex justify-content-end">
+                <span className="p-input-icon-left">
+                    <i className="pi pi-search" />
+                    <InputText value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Keyword Search" />
+                </span>
+            </div>
+        );
+    };
+
+
+
+
+
+    const header = renderHeader();
+
+    return (
+        <div className="card">
+            <DataTable value={contactsInfo} paginator rows={10} dataKey="id" filters={filters} filterDisplay="row" loading={loading}
+                globalFilterFields={['nom', 'prenom', 'numeroTelephone', 'age', 'email', 'fonction', 'localisation']} header={header} emptyMessage="No customers found.">
+                <Column field="nom" header="nom" filter filterPlaceholder="Search by name" style={{ minWidth: '12rem' }} />
+                <Column field="prenom" header="prenom" filterField="prenom" style={{ minWidth: '12rem' }} filter filterPlaceholder="Search by country" />
+                <Column field="numeroTelephone" header="numeroTelephone" filterField="numeroTelephone" filterPlaceholder="Search by name" style={{ minWidth: '12rem' }}
+                    filter />
+                <Column field="age" header="age" style={{ minWidth: '12rem' }} filter filterPlaceholder="Search by age" />
+                <Column field="email" header="email" style={{ minWidth: '12rem' }} filter filterPlaceholder="Search by age" />
+                <Column field="fonction" header="fonction" filter filterPlaceholder="Search by fonction" style={{ minWidth: '12rem' }} />
+                <Column field="localisation" header="localisation" filter filterPlaceholder="Search by localisation" style={{ minWidth: '12rem' }} />
+            </DataTable>
+        </div>
+    );
+}
