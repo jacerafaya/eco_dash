@@ -2,14 +2,8 @@ import React, { useState, useRef } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { InputTextarea } from 'primereact/inputtextarea';
-import { Dropdown } from 'primereact/dropdown';
-import { useReducer } from 'react';
 import { FileUpload } from 'primereact/fileupload';
-import { useQueryClient, useMutation } from 'react-query';
-import Link from 'next/link';
-
 import { useRouter } from 'next/router';
-
 import styles from '../../styles/service_css.module.css';
 import { Toast } from 'primereact/toast';
 import { ProgressBar } from 'primereact/progressbar';
@@ -144,7 +138,7 @@ const cancelOptions = { icon: 'pi pi-fw pi-times', iconOnly: true, className: 'c
         console.log("houni images" ,images);
 
         try {
-            if (images !== null && titre !== '' && description !== '' && contenu !== '') {
+            if (images.length!==0 && titre !== '' && description !== '' && contenu !== '') {
                 const response = await fetch('http://localhost:5050/article/ajouter_article', {
                     method: 'POST',
                     body: formData
@@ -162,7 +156,7 @@ const cancelOptions = { icon: 'pi pi-fw pi-times', iconOnly: true, className: 'c
 
     return (
         <div className="grid">
-            <div className="col-12 md:col-6">
+            <div className="col-12 ">
                 <div className="card p-fluid">
                     <form onSubmit={handleSubmit}>
                         <h5>Ajouter Article</h5>
@@ -180,7 +174,8 @@ const cancelOptions = { icon: 'pi pi-fw pi-times', iconOnly: true, className: 'c
                             <label htmlFor="contenu">Contenu</label>
                             <InputTextarea id="contenu" name="contenu" onChange={(e) => setContenu(e.target.value)} rows="4" />
                         </div>
-
+                        <div className="field col-12 ">
+                            <label >Images</label>
                         <div>
             <Toast ref={toast}></Toast>
 
@@ -192,6 +187,7 @@ const cancelOptions = { icon: 'pi pi-fw pi-times', iconOnly: true, className: 'c
                 onUpload={onTemplateUpload} onSelect={onTemplateSelect} onError={onTemplateClear} onClear={onTemplateClear}
                 headerTemplate={headerTemplate} itemTemplate={itemTemplate} emptyTemplate={emptyTemplate}
                 chooseOptions={chooseOptions} uploadOptions={uploadOptions} cancelOptions={cancelOptions} />
+        </div>
         </div>
 
                         <Button className={styles.submit_button} type="submit" label="Ajouter" icon="pi pi-check" />

@@ -127,11 +127,9 @@ const PanelDemo = () => {
                             <img src={PROTOCOLANDHOSTNAMEPARTOFTHEURL + 'imageService/' + cardContent.image} style={{ height: 215.1, width: 322.5 }} className="w-6" />
                             <p className="text-gray-800 sm:line-height-2 md:line-height-4 text-xl mt-4">{cardContent.description}</p>
                         </Fieldset>
-                        <Button label="Supprimer" className="p-button-danger m-4" onClick={() => removeCard(cardContent._id)} />
-
-                        
-                            <Button label="Modifier" className="m-4" onClick={() => editCard(cardContent)} />
                             <Button label="Consulter" className="p-button-success m-4" onClick={() => readCard(cardContent)} />
+                            <Button label="Modifier" className="m-4" onClick={() => editCard(cardContent)} />
+                            <Button label="Supprimer" className="p-button-danger m-4" onClick={() => removeCard(cardContent._id)} />
                             
                     </div>
                 );

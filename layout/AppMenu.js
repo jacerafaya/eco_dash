@@ -66,12 +66,13 @@ const AppMenu = () => {
                     ]
                 },
 
-                { label: 'Info Contact', icon: 'pi pi-fw pi-info-circle', to: '/contactInfo' }
+                { label: 'Info Contact', icon: 'pi pi-fw pi-info-circle', to: '/contactInfo' },
+                { label: 'Puissance', icon: 'pi pi-fw pi-bolt', to: '/puissance' }
             ]
         },
         {
             label: 'Partie Front',
-            items: [{ label: 'Page Principale', icon: 'pi pi-fw pi-globe', to: '/landing' }]
+            items: [{ label: 'Aller sur le site web', icon: 'pi pi-fw pi-globe', to: '/landing' }]
         }
     ];
 

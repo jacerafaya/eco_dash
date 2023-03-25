@@ -13,7 +13,7 @@ import { Toast } from 'primereact/toast';
 import { ProgressBar } from 'primereact/progressbar';
 import { Tooltip } from 'primereact/tooltip';
 import { Tag } from 'primereact/tag';
-const FormLayoutDemo = (props) => {
+const FormLayoutDemo = ({data}) => {
 ///////////////////////////////////////////
 
 const toast = useRef(null);
@@ -118,19 +118,21 @@ const cancelOptions = { icon: 'pi pi-fw pi-times', iconOnly: true, className: 'c
     const router = useRouter()
     
     
-    const [image, setImage] = useState(router.query.image);
-    const [titre, setTitre] = useState(router.query.titre);
-    const [description, setDescription] = useState(router.query.description);
+    const [image, setImage] = useState(data.image);
+    const [titre, setTitre] = useState(data.titre);
+    const [description, setDescription] = useState(data.description);
 
     const handleSubmit= async (e)=>{
         e.preventDefault();
-        const _id=router.query._id;
+        const _id=data._id;
         console.log("houni",_id)
         const formData = new FormData();
         formData.append('image', image);
         formData.append('description', description);
         formData.append('titre', titre);
+
         try {
+            if(description!=='' && titre!==''){
             const response = await fetch('http://localhost:5050/service/update/'+_id,
             {
                     method:'PUT',
@@ -138,12 +140,13 @@ const cancelOptions = { icon: 'pi pi-fw pi-times', iconOnly: true, className: 'c
                 }
             );
             console.log(response);
-
+            router.push('/services')
+        }
         } catch (error) {
             console.log(error);
         }
         console.log(FormData);
-        router.push('/services')
+        
     }
     
 
@@ -156,17 +159,18 @@ const cancelOptions = { icon: 'pi pi-fw pi-times', iconOnly: true, className: 'c
                         <h5>Modifier Services</h5>
                         <div className="field">
                             <label htmlFor="titre">Nom Service</label>
-                            <InputText onChange={(e)=>setTitre(e.target.value)} id="titre" name="titre" type="text" defaultValue={router.query.titre}  />
+                            <InputText onChange={(e)=>setTitre(e.target.value)} id="titre" name="titre" type="text" defaultValue={data.titre}  />
                         </div>
 
                         <div className="field col-12">
                             <label htmlFor="address">Description</label>
-                            <InputTextarea onChange={(e)=>setDescription(e.target.value)} id="description" name="description" rows="4" defaultValue={router.query.description} />
+                            <InputTextarea onChange={(e)=>setDescription(e.target.value)} id="description" name="description" rows="4" defaultValue={data.description} />
                             
                         </div>
 
 
-
+                        <div className="field col-12 ">
+                            <label >Images</label>
                         <div>
             <Toast ref={toast}></Toast>
 
@@ -179,7 +183,7 @@ const cancelOptions = { icon: 'pi pi-fw pi-times', iconOnly: true, className: 'c
                 headerTemplate={headerTemplate} itemTemplate={itemTemplate} emptyTemplate={emptyTemplate}
                 chooseOptions={chooseOptions} uploadOptions={uploadOptions} cancelOptions={cancelOptions} />
         </div>
-
+        </div>
 
 
 
@@ -194,5 +198,14 @@ const cancelOptions = { icon: 'pi pi-fw pi-times', iconOnly: true, className: 'c
         </div>
     );
 };
+
+
+FormLayoutDemo.getInitialProps = async ({ query }) => {
+    // Fetch data using the query parameter
+    const data = query;
+  
+    // Return the data as props
+    return { data };
+  };
 
 export default FormLayoutDemo;

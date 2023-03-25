@@ -3,6 +3,7 @@ import { FilterMatchMode } from 'primereact/api';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
+import { Button } from 'primereact/button';
 
 export default function BasicFilterDemo() {
     const [contactsInfo, setContactsInfo] = useState(null);
@@ -40,9 +41,25 @@ export default function BasicFilterDemo() {
         setGlobalFilterValue(value);
     };
 
+    const clearFilter1 = () => {
+        setFilters({
+            global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+            nom: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+            prenom: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+            numeroTelephone: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+            age: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+            email: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+            fonction: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+            localisation: { value: null, matchMode: FilterMatchMode.STARTS_WITH }
+        })
+        setGlobalFilterValue('');
+    };
+
+
     const renderHeader = () => {
         return (
-            <div className="flex justify-content-end">
+            <div className="flex justify-content-between">
+                <Button type="button" icon="pi pi-filter-slash" label="Clear" className="p-button-outlined" onClick={clearFilter1} />
                 <span className="p-input-icon-left">
                     <i className="pi pi-search" />
                     <InputText value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Keyword Search" />

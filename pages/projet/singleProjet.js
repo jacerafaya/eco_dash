@@ -1,9 +1,6 @@
-import React, { useRef,useState, useEffect } from 'react';
-import Link from 'next/link';
+import React from 'react';
 import { useRouter } from 'next/router';
-import { Galleria } from 'primereact/galleria';
-import { Carousel, CarouselItem } from 'primereact/carousel';
-import { Player } from 'video-react';
+
 
 const Gallery = ({ imagePaths }) => {
     if(!Array.isArray(imagePaths)){imagePaths=[imagePaths]}

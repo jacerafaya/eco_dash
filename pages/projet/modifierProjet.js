@@ -18,8 +18,8 @@ import { Tooltip } from 'primereact/tooltip';
 import { Tag } from 'primereact/tag';
 
 
-const FormLayoutDemo = () => {
-
+const FormLayoutDemo = ({data}) => {
+    
 ///////////////////////////////////////////
 
 const toast = useRef(null);
@@ -123,14 +123,14 @@ const cancelOptions = { icon: 'pi pi-fw pi-times', iconOnly: true, className: 'c
 
 
     const router = useRouter();
-    const [titre, setTitre] = useState(router.query.titre);
-    const [adresse, setAdresse] = useState(router.query.adresse);
-    const [description, setDescription] = useState(router.query.description);
-    const [images, setImages] = useState(router.query.images);
-    const [productionAnuelle, setProductionAnuelle] = useState(router.query.productionAnuelle);
-    const [type, setType] = useState(router.query.type);
-    const [video, setVideo] = useState(router.query.video);
-    console.log("router.query.images ",router.query.images);
+    const [titre, setTitre] = useState(data.titre);
+    const [adresse, setAdresse] = useState(data.adresse);
+    const [description, setDescription] = useState(data.description);
+    const [images, setImages] = useState(data.images);
+    const [productionAnuelle, setProductionAnuelle] = useState(data.productionAnuelle);
+    const [type, setType] = useState(data.type);
+    const [video, setVideo] = useState(data.video);
+    console.log("data.images ",data.images);
     const types = [
         { name: 'Pompage au fil du soleil', code: 'Pompage au fil du soleil' },
         { name: 'Pompage raccordé steg', code: 'Pompage raccordé steg' },
@@ -146,7 +146,7 @@ const cancelOptions = { icon: 'pi pi-fw pi-times', iconOnly: true, className: 'c
     const handleSubmit = async (e) => {
         e.preventDefault();
         //console.log("type.name",type.name)
-        const _id = router.query._id;
+        const _id = data._id;
         const formData = new FormData();
         console.log("9bal for each images",images)
         if (images!== undefined && images!== null) {
@@ -164,24 +164,29 @@ const cancelOptions = { icon: 'pi pi-fw pi-times', iconOnly: true, className: 'c
         formData.append('description', description);
         formData.append('productionAnuelle', productionAnuelle);
         formData.append('video', video);
-        formData.append('type', type?.name);
+        
+        if(typeof type === 'object'){formData.append('type', type?.name);}
+        else{formData.append('type', type);}
+        
         console.log('houni images', images);
 
+        
+
         try {
-            if (images !== undefined) {
+            if (titre !== '' && adresse !== '' && description !== '' && productionAnuelle !== '' && type !== null ) {
                 const response = await fetch('http://localhost:5050/projet/update/' + _id, {
                     method: 'PUT',
                     body: formData
                 });
                 console.log(response);
+                router.push('/projet');
             }
         } catch (error) {
             console.log(error);
         }
         console.log(FormData);
-        router.push('/projet');
+        
     };
-    
 
     return (
 <div className="grid">
@@ -192,26 +197,29 @@ const cancelOptions = { icon: 'pi pi-fw pi-times', iconOnly: true, className: 'c
                     <div className="p-fluid formgrid grid">
                         <div className="field col-12 md:col-6">
                             <label htmlFor="firstname2">Titre</label>
-                            <InputText onChange={(e) => setTitre(e.target.value)} id="titre" name="titre" type="text" defaultValue={router.query.titre} />
+                            <InputText onChange={(e) => setTitre(e.target.value)} id="titre" name="titre" type="text" defaultValue={data.titre} />
                         </div>
 
                         <div className="field col-12">
                             <label htmlFor="address">Address</label>
-                            <InputTextarea id="address" name="address" onChange={(e) => setAdresse(e.target.value)} rows="4" defaultValue={router.query.adresse} />
+                            <InputTextarea id="address" name="address" onChange={(e) => setAdresse(e.target.value)} rows="4" defaultValue={data.adresse} />
                         </div>
                         <div className="field col-12">
                             <label htmlFor="description">Description</label>
-                            <InputTextarea onChange={(e) => setDescription(e.target.value)} id="description" name="description"  rows="4" defaultValue={router.query.description} />
+                            <InputTextarea onChange={(e) => setDescription(e.target.value)} id="description" name="description"  rows="4" defaultValue={data.description} />
                         </div>
                         <div className="field col-12 md:col-6">
                             <label htmlFor="productionAnuelle">Production anuelle</label>
-                            <InputText onChange={(e) => setProductionAnuelle(e.target.value)} id="productionAnuelle" name="productionAnuelle" type="text" defaultValue={router.query.productionAnuelle} />
+                            <InputText onChange={(e) => setProductionAnuelle(e.target.value)} id="productionAnuelle" name="productionAnuelle" type="text" defaultValue={data.productionAnuelle} />
                         </div>
                         <div className="field col-12 md:col-3">
                             <label htmlFor="type">Type</label>
-                            <Dropdown id="type" value={type} onChange={(e) => setType(e.value)} options={types} optionLabel="name" placeholder={router.query.type} defaultValue={router.query.type}></Dropdown>
+                            <Dropdown id="type" value={type} onChange={(e) => setType(e.value)} options={types} optionLabel="name" placeholder={data.type} defaultValue={data.type}></Dropdown>
                         </div>
 
+
+                        <div className="field col-12 ">
+                            <label >Images</label>
                         <div>
             <Toast ref={toast}></Toast>
 
@@ -224,6 +232,8 @@ const cancelOptions = { icon: 'pi pi-fw pi-times', iconOnly: true, className: 'c
                 headerTemplate={headerTemplate} itemTemplate={itemTemplate} emptyTemplate={emptyTemplate}
                 chooseOptions={chooseOptions} uploadOptions={uploadOptions} cancelOptions={cancelOptions} />
         </div>
+        </div>
+
 
                         <div className="field col-12 ">
                             <label htmlFor="state">video</label>
@@ -243,7 +253,18 @@ const cancelOptions = { icon: 'pi pi-fw pi-times', iconOnly: true, className: 'c
     );
 };
 
+
+
+
+
+
+FormLayoutDemo.getInitialProps = async ({ query }) => {
+    // Fetch data using the query parameter
+    const data = query;
+  
+    // Return the data as props
+    return { data };
+  };
+
+
 export default FormLayoutDemo;
-
-
-

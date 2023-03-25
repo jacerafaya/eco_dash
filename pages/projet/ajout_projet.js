@@ -203,10 +203,24 @@ const cancelOptions = { icon: 'pi pi-fw pi-times', iconOnly: true, className: 'c
                         </div>
 
                         <div className="field col-12 ">
-                            <label htmlFor="state">Images</label>
-   
+                            <label >Images</label>
+                            <div>
+                            <Toast ref={toast}></Toast>
+                            <Tooltip target=".custom-choose-btn" content="Choose" position="bottom" />
+                            <Tooltip target=".custom-upload-btn" content="Upload" position="bottom" />
+                            <Tooltip target=".custom-cancel-btn" content="Clear" position="bottom" />
+                            <FileUpload ref={fileUploadRef} name="images"  multiple accept="image/*" maxFileSize={3000000}
+                                onUpload={onTemplateUpload} onSelect={onTemplateSelect} onError={onTemplateClear} onClear={onTemplateClear}
+                                headerTemplate={headerTemplate} itemTemplate={itemTemplate} emptyTemplate={emptyTemplate}
+                                chooseOptions={chooseOptions} uploadOptions={uploadOptions} cancelOptions={cancelOptions} />
+                        </div>
                             
                         </div>
+
+
+
+
+
 
                         <div className="field col-12 ">
                             <label htmlFor="state">video</label>
@@ -215,22 +229,11 @@ const cancelOptions = { icon: 'pi pi-fw pi-times', iconOnly: true, className: 'c
                                     setVideo(e.files[0])
                                 }}
                                 chooseLabel={video ? video.name : 'Choisir une video'} cancelLabel="Cancel" mode="basic"
-                                accept=".mp4" maxFileSize={1000000} />
+                                accept="video/*" maxFileSize={1000000} />
                         </div>
 
 
-                        <div>
-            <Toast ref={toast}></Toast>
 
-            <Tooltip target=".custom-choose-btn" content="Choose" position="bottom" />
-            <Tooltip target=".custom-upload-btn" content="Upload" position="bottom" />
-            <Tooltip target=".custom-cancel-btn" content="Clear" position="bottom" />
-
-            <FileUpload ref={fileUploadRef} name="images"  multiple accept="image/*" maxFileSize={3000000}
-                onUpload={onTemplateUpload} onSelect={onTemplateSelect} onError={onTemplateClear} onClear={onTemplateClear}
-                headerTemplate={headerTemplate} itemTemplate={itemTemplate} emptyTemplate={emptyTemplate}
-                chooseOptions={chooseOptions} uploadOptions={uploadOptions} cancelOptions={cancelOptions} />
-        </div>
                     </div>
                     <Button className={styles['my-fileupload']} type="submit" label="Ajouter" icon="pi pi-check" />
                 </form>
