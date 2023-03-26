@@ -25,7 +25,7 @@ const LoginPage = () => {
                     <div className="w-full surface-card py-8 px-5 sm:px-8" style={{ borderRadius: '53px' }}>
                         <div className="text-center mb-5">
                             <img src={`${contextPath}/demo/images/login/avatar.png`} alt="Image" height="50" className="mb-3" />
-                            <div className="text-900 text-3xl font-medium mb-3">Welcome, Isabel!</div>
+                            <div className="text-900 text-3xl font-medium mb-3">Welcome !</div>
                             <span className="text-600 font-medium">Sign in to continue</span>
                         </div>
 
@@ -40,17 +40,17 @@ const LoginPage = () => {
                             </label>
                             <Password inputid="password1" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" toggleMask className="w-full mb-5" inputClassName='w-full p-3 md:w-30rem'></Password>
 
-                            <div className="flex align-items-center justify-content-between mb-5 gap-5">
-                                <div className="flex align-items-center">
-                                    <Checkbox inputid="rememberme1" checked={checked} onChange={(e) => setChecked(e.checked)} className="mr-2"></Checkbox>
-                                    <label htmlFor="rememberme1">
-                                        Remember me
-                                    </label>
-                                </div>
-                                <a className="font-medium no-underline ml-2 text-right cursor-pointer" style={{ color: 'var(--primary-color)' }}>
-                                    Forgot password?
-                                </a>
-                            </div>
+                            {/* <div className="flex align-items-center justify-content-between mb-5 gap-5"> */}
+                            {/*     <div className="flex align-items-center"> */}
+                            {/*         <Checkbox inputid="rememberme1" checked={checked} onChange={(e) => setChecked(e.checked)} className="mr-2"></Checkbox> */}
+                            {/*         <label htmlFor="rememberme1"> */}
+                            {/*             Remember me */}
+                            {/*         </label> */}
+                            {/*     </div> */}
+                            {/*     <a className="font-medium no-underline ml-2 text-right cursor-pointer" style={{ color: 'var(--primary-color)' }}> */}
+                            {/*         Forgot password? */}
+                            {/*     </a> */}
+                            {/* </div> */}
                             <Button label="Sign In" className="w-full p-3 text-xl" onClick={() => router.push('/')}></Button>
                         </div>
                     </div>

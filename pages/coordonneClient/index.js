@@ -44,13 +44,13 @@ export default function BasicFilterDemo() {
     const clearFilter1 = () => {
         setFilters({
             global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-            nom: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-            prenom: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-            numeroTelephone: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-            age: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-            email: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-            fonction: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-            localisation: { value: null, matchMode: FilterMatchMode.STARTS_WITH }
+            nom: { value: null, matchMode: FilterMatchMode.CONTAINS },
+            prenom: { value: null, matchMode: FilterMatchMode.CONTAINS },
+            numeroTelephone: { value: null, matchMode: FilterMatchMode.CONTAINS },
+            age: { value: null, matchMode: FilterMatchMode.CONTAINS },
+            email: { value: null, matchMode: FilterMatchMode.CONTAINS },
+            fonction: { value: null, matchMode: FilterMatchMode.CONTAINS },
+            localisation: { value: null, matchMode: FilterMatchMode.CONTAINS }
         })
         setGlobalFilterValue('');
     };
@@ -78,14 +78,14 @@ export default function BasicFilterDemo() {
         <div className="card">
             <DataTable value={contactsInfo} paginator rows={10} dataKey="id" filters={filters} filterDisplay="row" loading={loading}
                 globalFilterFields={['nom', 'prenom', 'numeroTelephone', 'age', 'email', 'fonction', 'localisation']} header={header} emptyMessage="No customers found.">
-                <Column field="nom" header="nom" filter filterPlaceholder="Search by name" style={{ minWidth: '12rem' }} />
-                <Column field="prenom" header="prenom" filterField="prenom" style={{ minWidth: '12rem' }} filter filterPlaceholder="Search by country" />
+                <Column field="nom" header="nom" filter filterPlaceholder="Search by name" style={{ minWidth: '12rem' }} showFilterMenu={false}/>
+                <Column field="prenom" header="prenom" filterField="prenom" style={{ minWidth: '12rem' }} filter filterPlaceholder="Search by country" showFilterMenu={false} />
                 <Column field="numeroTelephone" header="numeroTelephone" filterField="numeroTelephone" filterPlaceholder="Search by name" style={{ minWidth: '12rem' }}
-                    filter />
-                <Column field="age" header="age" style={{ minWidth: '12rem' }} filter filterPlaceholder="Search by age" />
-                <Column field="email" header="email" style={{ minWidth: '12rem' }} filter filterPlaceholder="Search by age" />
-                <Column field="fonction" header="fonction" filter filterPlaceholder="Search by fonction" style={{ minWidth: '12rem' }} />
-                <Column field="localisation" header="localisation" filter filterPlaceholder="Search by localisation" style={{ minWidth: '12rem' }} />
+                    filter showFilterMenu={false}/>
+                <Column field="age" header="age" style={{ minWidth: '12rem' }} filter filterPlaceholder="Search by age" showFilterMenu={false}/>
+                <Column field="email" header="email" style={{ minWidth: '12rem' }} filter filterPlaceholder="Search by age" showFilterMenu={false}/>
+                <Column field="fonction" header="fonction" filter filterPlaceholder="Search by fonction" style={{ minWidth: '12rem' }} showFilterMenu={false}/>
+                <Column field="localisation" header="localisation" filter filterPlaceholder="Search by localisation" style={{ minWidth: '12rem' }} showFilterMenu={false}/>
             </DataTable>
         </div>
     );
