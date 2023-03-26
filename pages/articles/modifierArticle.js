@@ -116,9 +116,6 @@ const FormLayoutDemo = ({ data }) => {
     const [description, setDescription] = useState(data.description);
     const [contenu, setContenu] = useState(data.contenu);
 
-    useEffect(() => {
-        console.log(images);
-    }, [images]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -210,10 +207,8 @@ const FormLayoutDemo = ({ data }) => {
 };
 
 FormLayoutDemo.getInitialProps = async ({ query }) => {
-    // Fetch data using the query parameter
     const data = query;
 
-    // Return the data as props
     return { data };
 };
 

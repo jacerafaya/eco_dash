@@ -51,7 +51,6 @@ const EmptyPage = () => {
 
 
 
-    const karmous=["2023-03-22T19-29-56.618ZFkrZ9JSWAAMMV_C.jpg"]
     const PROTOCOLANDHOSTNAMEPARTOFTHEURL = 'http://localhost:5050/';
     
     return (
