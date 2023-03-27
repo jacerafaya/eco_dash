@@ -1,61 +1,10 @@
 import React from 'react';
-import { useRouter } from 'next/router';
+import Gallery from '../../demo/components/Gallery';
 
+const EmptyPage = ({ data }) => {
 
-const Gallery = ({ imagePaths }) => {
-    if(!Array.isArray(imagePaths)){imagePaths=[imagePaths]}
-    return (
-      <div className="gallery">
-        {imagePaths.map(path => (
-          <img key={path} src={`http://localhost:5050/imagesProjet/${path}`} alt={path} />
-        ))}
-      </div>
-    );
-  };
+    const PROTOCOL_AND_HOSTNAME_PART_OF_THE_URL = 'http://localhost:5050';
 
-
-
-
-
-
-
-
-const EmptyPage = ({data}) => {
-    const router = useRouter();
-    console.log("data",data)
-    
-    const responsiveOptions = [
-        {
-            breakpoint: '991px',
-            numVisible: 4
-        },
-        {
-            breakpoint: '767px',
-            numVisible: 3
-        },
-        {
-            breakpoint: '575px',
-            numVisible: 1
-        }
-    ];
-
-    
-
-
-    const itemTemplate = (item) => {
-        return <img src={item.itemImageSrc} alt={item.alt} style={{ width: '100%' }} />
-    }
-
-    const thumbnailTemplate = (item) => {
-        return <img src={item.thumbnailImageSrc} alt={item.alt} />
-    }
-
-
-
-
-    
-    const PROTOCOLANDHOSTNAMEPARTOFTHEURL = 'http://localhost:5050/';
-    
     return (
         <div className="grid">
             <div className="col-12">
@@ -70,28 +19,27 @@ const EmptyPage = ({data}) => {
                     <h5>{data.productionAnuelle}</h5>
                     <h3>type:</h3>
                     <h5>{data.type}</h5>
-                    
-                    <Gallery imagePaths={data.images}></Gallery>
+                    <Gallery 
+                        imagePaths={Array.isArray(data.images) ? 
+                            data.images.map((imageName) => `${ PROTOCOL_AND_HOSTNAME_PART_OF_THE_URL}/imagesProjet/${imageName}`): 
+                            `${PROTOCOL_AND_HOSTNAME_PART_OF_THE_URL}/imagesProjet/${data.images}`}>
+
+                    </Gallery>
                     <video controls>
-  <source src={"http://localhost:5050/videosProjet/"+data.video } type="video/mp4" />
-  Your browser does not support the video tag.
-</video>
-
-
+                        <source src={`${PROTOCOL_AND_HOSTNAME_PART_OF_THE_URL}/videosProjet/${data.video}`} type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
-
             </div>
         </div>
     );
 };
 
 EmptyPage.getInitialProps = async ({ query }) => {
-    // Fetch data using the query parameter
     const data = query;
-  
-    // Return the data as props
+
     return { data };
-  };
+};
 
 
 export default EmptyPage;

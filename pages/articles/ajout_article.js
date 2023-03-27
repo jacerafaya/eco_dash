@@ -58,7 +58,6 @@ const onTemplateRemove = (file, callback) => {
     console.log("images in remove ",images)
     console.log("file in remove ",file);
     setImages(images.filter((image)=>image!==file));
-    //console.log("images in remove after filter ",images)
     setTotalSize(totalSize - file.size);
     callback();
 };
