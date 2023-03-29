@@ -8,6 +8,7 @@ import { Password } from 'primereact/password';
 import { LayoutContext } from '../layout/context/layoutcontext';
 import { InputText } from 'primereact/inputtext';
 import { classNames } from 'primereact/utils';
+import Cookies from 'js-cookie';
 
 const LoginPage = () => {
     const [password, setPassword] = useState('');
@@ -28,6 +29,7 @@ const LoginPage = () => {
         });
         console.log(response);
         if (response.ok) {
+            Cookies.set('authenticated', 'true');
             router.push('/articles');
         }
     }

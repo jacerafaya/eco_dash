@@ -6,21 +6,26 @@ import 'primeflex/primeflex.css';
 import 'primeicons/primeicons.css';
 import '../styles/layout/layout.scss';
 import '../styles/demo/Demos.scss';
+import AuthChecker from '../demo/components/AuthChecker';
 
-export default function MyApp({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps, router }) {
     if (Component.getLayout) {
         return (
-            <LayoutProvider>
-                {Component.getLayout(<Component {...pageProps} />)}
-            </LayoutProvider>
+            <AuthChecker>
+                <LayoutProvider>
+                    {Component.getLayout(<Component {...pageProps} />)}
+                </LayoutProvider>
+            </AuthChecker>
         )
     } else {
         return (
-            <LayoutProvider>
-                <Layout>
-                    <Component {...pageProps} />
-                </Layout>
-            </LayoutProvider>
+            <AuthChecker>
+                <LayoutProvider>
+                    <Layout>
+                        <Component {...pageProps} />
+                    </Layout>
+                </LayoutProvider>
+            </AuthChecker>
         );
     }
 }
