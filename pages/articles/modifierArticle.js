@@ -138,7 +138,8 @@ const FormLayoutDemo = ({ data }) => {
             if (description !== '' && titre !== '' && contenu !== '') {
                 const response = await fetch('http://localhost:5050/article/update/' + _id, {
                     method: 'PUT',
-                    body: formData
+                    body: formData,
+                    credentials: 'include'
                 });
                 console.log(response);
                 router.push('/articles');

@@ -23,7 +23,8 @@ const LoginPage = () => {
             body: JSON.stringify({ email, password }),
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            credentials:'include'
         });
         console.log(response);
         if (response.ok) {

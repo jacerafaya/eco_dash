@@ -39,7 +39,8 @@ const PanelDemo = () => {
     const removeCard = (id) => {
         console.log(id);
         fetch(PROTOCOLANDHOSTNAMEPARTOFTHEURL + 'article/' + id, {
-            method: 'DELETE'
+            method: 'DELETE',
+            credentials: 'include'
         })
             .then((response) => {
                 if (!response.ok) {

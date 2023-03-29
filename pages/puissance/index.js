@@ -4,10 +4,8 @@ import { Button } from 'primereact/button';
 
 import {useEffect,useRef } from 'react';
 
-import { useRouter } from 'next/router';
 
 const FormLayoutDemo = () => {
-    const router = useRouter();
     const ref_id=useRef(0);
    
     
@@ -47,6 +45,7 @@ const FormLayoutDemo = () => {
             const response = await fetch('http://localhost:5050/puissance/update/' + _id, {
                 method: 'PUT',
                 body: JSON.stringify(puissance),
+                credentials: 'include',
                 headers: {
                     "Content-Type": "application/json",
                   }
@@ -57,7 +56,6 @@ const FormLayoutDemo = () => {
             console.log(error);
         }
         
-        router.push('/articles');
     };
 
     return (
