@@ -4,22 +4,29 @@ import AppMenuitem from './AppMenuitem';
 import { LayoutContext } from './context/layoutcontext';
 import { MenuProvider } from './context/menucontext';
 import { useRouter } from 'next/router';
+import { removeCookie } from '../demo/utils/cookieUtils';
+// import Cookies from 'js-cookie';
 
 const AppMenu = () => {
     const router = useRouter();
     const { layoutConfig } = useContext(LayoutContext);
     const contextPath = getConfig().publicRuntimeConfig.contextPath;
-    const handleLogout = async() => {
-        const response = await fetch('http://localhost:5050/admin/logout',{
-            method:'POST',
-            credentials:'include',
-            body:JSON.stringify({}),
-            headers:{
-               'Content-Type': 'application/json' 
+    const handleLogout = async () => {
+        const response = await fetch('http://localhost:5050/admin/logout', {
+            method: 'POST',
+            credentials: 'include',
+            body: JSON.stringify({}),
+            headers: {
+                'Content-Type': 'application/json'
             }
         })
         if (response.ok) {
-           router.push('/');
+            // if (Cookies.get('authenticated')) {
+            //     Cookies.remove('authenticated');
+            // }
+            // Cookies.set('authenticated','false');
+            removeCookie('authenticated');
+            router.push('/');
         }
     }
     const model = [
@@ -82,7 +89,7 @@ const AppMenu = () => {
 
                 { label: 'Info Contact', icon: 'pi pi-fw pi-info-circle', to: '/contactInfo' },
                 { label: 'Puissance', icon: 'pi pi-fw pi-bolt', to: '/puissance' },
-                { label: 'Logout', icon: 'pi pi-fw pi-sign-out', command:handleLogout}
+                { label: 'Logout', icon: 'pi pi-fw pi-sign-out', command: handleLogout }
             ]
         },
         {
