@@ -2,60 +2,72 @@ import React, { useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 
-import {useEffect,useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 
 const FormLayoutDemo = () => {
-    const ref_id=useRef(0);
-   
-    
-    
+    const ref_id = useRef(0);
+    const refPuissanceAllemande = useRef(0);
+    const refPuissanceChinoise = useRef(0);
+    const [key, setKey] = useState(0);
+
+
+
     const PROTOCOLANDHOSTNAMEPARTOFTHEURL = 'http://localhost:5050/';
-   
+
     useEffect(() => {
-        
+
         fetch(PROTOCOLANDHOSTNAMEPARTOFTHEURL + 'puissance')
             .then((response) => response.json())
             .then((data) => {
-                ref_id.current=data[0]._id
-                
+                ref_id.current = data[0]._id
+                refPuissanceAllemande.current = data[0].puissanceAllemande;
+                refPuissanceChinoise.current = data[0].puissanceChinoise;
+
                 setPuissanceAllemande(data[0].puissanceAllemande)
                 setPuissanceChinoise(data[0].puissanceChinoise)
-                
+
             })
             .catch((error) => console.log(error));
     }, []);
     const [puissanceAllemande, setPuissanceAllemande] = useState('');
     const [puissanceChinoise, setPuissanceChinoise] = useState('');
+    const regex = /^\d+(\.\d+)?$/;
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        const temp_puissance = {};
-
-
-        const _id=ref_id.current
-        const puissance={_id,puissanceAllemande, puissanceChinoise}
+        const _id = ref_id.current
+        const puissance = { _id, puissanceAllemande, puissanceChinoise }
         console.log(puissance);
-        
-        
+
+
         try {
-           
-            const response = await fetch('http://localhost:5050/puissance/update/' + _id, {
-                method: 'PUT',
-                body: JSON.stringify(puissance),
-                credentials: 'include',
-                headers: {
-                    "Content-Type": "application/json",
-                  }
-            });
-            console.log(response);
-        
+            if (regex.test(puissanceAllemande)) {
+                const response = await fetch('http://localhost:5050/puissance/update/' + _id, {
+                    method: 'PUT',
+                    body: JSON.stringify(puissance),
+                    credentials: 'include',
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                });
+                console.log(response);
+                if(response.ok){
+                    alert("puissance modifié avec succés");
+                }
+            }
+            else {
+                setPuissanceAllemande(refPuissanceAllemande.current);
+                setPuissanceChinoise(refPuissanceChinoise.current);
+                setKey(key + 1);
+                alert('puissance invalide veuillez saisir un nombre');
+            }
+
         } catch (error) {
             console.log(error);
         }
-        
+
     };
 
     return (
@@ -63,7 +75,7 @@ const FormLayoutDemo = () => {
             <div className="col-10">
                 <div className="card">
                     <h5>Puissances des panneaux</h5>
-                    <form onSubmit={handleSubmit}>
+                    <form key={key} onSubmit={handleSubmit}>
                         <div className="p-fluid formgrid grid">
                             <div className="field col-12 md:col-12">
                                 <label htmlFor="SiegeSocial">Puissance Allemande</label>
