@@ -89,6 +89,7 @@ const AppMenu = () => {
 
                 { label: 'Info Contact', icon: 'pi pi-fw pi-info-circle', to: '/contactInfo' },
                 { label: 'Puissance', icon: 'pi pi-fw pi-bolt', to: '/puissance' },
+                { label: 'Indicateur', icon: 'pi pi-fw pi-chart-pie', to: '/indicateur' },
                 { label: 'Logout', icon: 'pi pi-fw pi-sign-out', command: handleLogout }
             ]
         },

@@ -38,12 +38,12 @@ const FormLayoutDemo = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const _id = ref_id.current
-        const puissance = { _id, puissanceAllemande, puissanceChinoise }
+        const puissance = { puissanceAllemande, puissanceChinoise }
         console.log(puissance);
 
 
         try {
-            if (regex.test(puissanceAllemande)) {
+            if (regex.test(puissanceAllemande) && regex.test(puissanceChinoise)) {
                 const response = await fetch('http://localhost:5050/puissance/update/' + _id, {
                     method: 'PUT',
                     body: JSON.stringify(puissance),
@@ -53,8 +53,10 @@ const FormLayoutDemo = () => {
                     }
                 });
                 console.log(response);
-                if(response.ok){
+                if (response.ok) {
                     alert("puissance modifié avec succés");
+                    refPuissanceAllemande.current = puissanceAllemande;
+                    refPuissanceChinoise.current = puissanceChinoise;
                 }
             }
             else {
