@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 const EmptyPage = () => {
     const router = useRouter();
-    const PROTOCOLANDHOSTNAMEPARTOFTHEURL = 'http://localhost:5050/';
+    const PROTOCOLANDHOSTNAMEPARTOFTHEURL = 'http://79.137.87.204:5050/';
     
     return (
         <div className="grid">

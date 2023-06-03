@@ -159,7 +159,7 @@ const cancelOptions = { icon: 'pi pi-fw pi-times', iconOnly: true, className: 'c
 
         try {
             if (images.length!==0 && titre !== '' && adresse !== '' && description !== '' && productionAnuelle !== '' && type !== null && video !==null) {
-                const response = await fetch('http://localhost:5050/projet/ajouter_projet', {
+                const response = await fetch('http://79.137.87.204:5050/projet/ajouter_projet', {
                     method: 'POST',
                     body: formData,
                     credentials: 'include'

@@ -3,7 +3,7 @@ import Gallery from '../../demo/components/Gallery';
 
 const EmptyPage = ({ data }) => {
 
-    const PROTOCOL_AND_HOSTNAME_PART_OF_THE_URL = 'http://localhost:5050';
+    const PROTOCOL_AND_HOSTNAME_PART_OF_THE_URL = 'http://79.137.87.204:5050/';
 
     return (
         <div className="grid">

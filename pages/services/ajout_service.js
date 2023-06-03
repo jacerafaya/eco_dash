@@ -137,7 +137,7 @@ const FormLayoutDemo = () => {
         try {
 
             if (image && titre !== '' && description !== '') {
-                const response = await fetch('http://localhost:5050/service/ajouter_service',
+                const response = await fetch('http://79.137.87.204:5050/service/ajouter_service',
                     {
                         method: 'POST',
                         body: formData,

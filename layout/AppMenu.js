@@ -12,19 +12,16 @@ const AppMenu = () => {
     const { layoutConfig } = useContext(LayoutContext);
     const contextPath = getConfig().publicRuntimeConfig.contextPath;
     const handleLogout = async () => {
-        const response = await fetch('http://localhost:5050/admin/logout', {
+        const response = await fetch('http://79.137.87.204:5050/admin/logout', {
             method: 'POST',
-            credentials: 'include',
             body: JSON.stringify({}),
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             }
+           
         })
         if (response.ok) {
-            // if (Cookies.get('authenticated')) {
-            //     Cookies.remove('authenticated');
-            // }
-            // Cookies.set('authenticated','false');
             removeCookie('authenticated');
             router.push('/');
         }

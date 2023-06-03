@@ -19,7 +19,7 @@ const LoginPage = () => {
     const router = useRouter();
     const containerClassName = classNames('surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden', { 'p-input-filled': layoutConfig.inputStyle === 'filled' });
     const onLogin = async () => {
-        const response = await fetch('http://localhost:5050/admin/login', {
+        const response = await fetch('http://79.137.87.204:5050/admin/login', {
             method: 'POST',
             body: JSON.stringify({ email, password }),
             headers: {
@@ -41,7 +41,7 @@ const LoginPage = () => {
                 <div style={{ borderRadius: '56px', padding: '0.3rem', background: 'linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%)' }}>
                     <div className="w-full surface-card py-8 px-5 sm:px-8" style={{ borderRadius: '53px' }}>
                         <div className="text-center mb-5">
-                            <img src={`${contextPath}/demo/images/login/avatar.png`} alt="Image" height="50" className="mb-3" />
+                            <img src={`${contextPath}/demo/images/login/avatar.jpg`} alt="Image" height="50" className="mb-3" />
                             <div className="text-900 text-3xl font-medium mb-3">Welcome !</div>
                             <span className="text-600 font-medium">Sign in to continue</span>
                         </div>

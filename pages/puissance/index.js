@@ -13,7 +13,7 @@ const FormLayoutDemo = () => {
 
 
 
-    const PROTOCOLANDHOSTNAMEPARTOFTHEURL = 'http://localhost:5050/';
+    const PROTOCOLANDHOSTNAMEPARTOFTHEURL = 'http://79.137.87.204:5050/';
 
     useEffect(() => {
 
@@ -44,7 +44,7 @@ const FormLayoutDemo = () => {
 
         try {
             if (regex.test(puissanceAllemande) && regex.test(puissanceChinoise)) {
-                const response = await fetch('http://localhost:5050/puissance/update/' + _id, {
+                const response = await fetch('http://79.137.87.204:5050/puissance/update/' + _id, {
                     method: 'PUT',
                     body: JSON.stringify(puissance),
                     credentials: 'include',

@@ -84,7 +84,7 @@ const itemTemplate = (file, props) => {
     return (
         <div className="flex align-items-center flex-wrap">
             <div className="flex align-items-center" style={{ width: '40%' }}>
-                <img alt={file.name ?? file} role="presentation" src={file.objectURL ?? `http://localhost:5050/imageService/${file}`} width={100} />
+                <img alt={file.name ?? file} role="presentation" src={file.objectURL ?? `http://79.137.87.204:5050/imageService/${file}`} width={100} />
                 <span className="flex flex-column text-left ml-3">
                     {file.name}
                     <small>{new Date().toLocaleDateString()}</small>
@@ -134,7 +134,7 @@ const cancelOptions = { icon: 'pi pi-fw pi-times', iconOnly: true, className: 'c
 
         try {
             if(description!=='' && titre!==''){
-            const response = await fetch('http://localhost:5050/service/update/'+_id,
+            const response = await fetch('http://79.137.87.204:5050/service/update/'+_id,
             {
                     method:'PUT',
                     body:formData,
